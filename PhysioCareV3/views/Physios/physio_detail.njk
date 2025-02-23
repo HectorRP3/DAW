@@ -1,0 +1,21 @@
+{% extends "base.njk" %}
+
+{% block titulo %}Physio | Ficha{% endblock %}
+
+{% block content %}
+
+    <h1>Ficha de libro</h1>
+    <div>
+         {% if physio.image %}
+            <p><img src="/public/uploads/{{ physio.image }}"></p>
+        {% endif %}
+        <p><strong>Name:</strong> {{ physio.name }}</p>
+        <p><strong>Surname:</strong> {{ physio.surname }}</p>
+        <p><strong>Specialty:</strong> {{ physio.specialty }}</p>
+        <p><strong>LicenseNumber:</strong> {{ physio.licenseNumber }}</p>
+       
+    </div>
+    <a class="btn btn-success" href="/physios">Volver</a>
+    <a class="btn btn-primary" href="/physios/edit/{{ physio.id }}">Editar</a>
+
+{% endblock %}

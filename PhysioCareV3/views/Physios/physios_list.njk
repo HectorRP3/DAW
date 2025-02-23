@@ -1,0 +1,35 @@
+{% extends "../base.njk"%}
+
+{% block titulo %}Physios | List{% endblock %}
+
+{% block content %}
+
+    <h1>Physios</h1>
+
+    <table class="w-100">
+        <tr class="bg-primary text-center">
+            <th>Nombre</th>
+            <th class="w-25">Acciones</th>
+        </tr>
+    {% for physio in physios %}
+                <tr>
+                    {% if loop.index % 2 == 0 %}
+                        <td class="par">{{ physio.name }}</td>
+                    {% else %}
+                        <td class="impar">{{ physio.name }}</td>
+                    {% endif %}
+                    <td>
+                        <a class="btn btn-success" href="/physios/{{ physio.id }}">Ver ficha</a>
+                        <form style="display:inline" action="/physios/{{ physio.id }}" method="post">
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit" class="btn btn-danger">Borrar</button>
+                        </form>
+                        <a class="btn btn-primary" href="/physios/edit/{{ physio.id }}">Editar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td>No hay Physios que mostrar.</td></tr>
+            {% endfor %}
+    </table>
+
+{% endblock %}

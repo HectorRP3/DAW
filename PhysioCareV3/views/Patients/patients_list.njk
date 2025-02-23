@@ -1,0 +1,52 @@
+{% extends "../base.njk"%}
+
+{% block titulo %}Patients | List{% endblock %}
+
+{% block content %}
+
+<h1>Patients</h1>
+
+<h2>Buscador de Patients</h2>
+<form action="/patients/find" method="get">
+    <div class="form-group">
+        <label for="surname">Surname:</label>
+        <input type="text" class="form-control" name="surname" placeholder="Surname del patient" />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+    <a class="btn btn-success" href="/patients">Limpiar</a>
+</form>
+
+
+
+<table class="w-100">
+    <tr class="bg-primary text-center">
+        <th>Nombre</th>
+        <th class="w-25">Acciones</th>
+    </tr>
+    {% if patients.length == 0 %}
+        <tr><td>No hay Patients que mostrar.</td></tr>
+    {% else %}
+        {% for patient in patients %}
+            <tr>
+                {% if loop.index % 2 == 0 %}
+                    <td class="par">{{ patient.name }}</td>
+                {% else %}
+                    <td class="impar">{{ patient.name }}</td>
+                {% endif %}
+                <td>
+                    <a class="btn btn-success" href="/patients/{{ patient.id }}">Ver ficha</a>
+                    <form style="display:inline" action="/patients/{{ patient.id }}" method="post">
+                        <input type="hidden" name="_method" value="delete" />
+                        <button type="submit" class="btn btn-danger">Borrar</button>
+                    </form>
+                    <a class="btn btn-primary" href="/patients/{{patient.id}}/edit">Editar</a>
+                    <a class="btn btn-warning" href="/records/{{patient.id}}">Crear Expediente</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td>No hay Patients que mostrar.</td></tr>
+        {% endfor %}
+    {% endif %}
+    </table>
+
+{% endblock %}

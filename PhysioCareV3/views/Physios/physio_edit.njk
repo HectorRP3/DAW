@@ -1,0 +1,29 @@
+{% extends "../base.njk" %}
+
+{% block titulo %}Physio | Ficha{% endblock %}
+
+{% block content %}
+
+   <h1>Edición de physio existente</h1>
+
+    {% if (physio) %}
+
+        {% if errores.general %}
+            <p class="alert alert-danger">{{ errores.general }}</p>
+        {% endif %}
+
+        <form action="/patient/{{ patient.id }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                {% if errores.name %}
+                    <p class="text-danger">{{ errores.name }}</p>
+                {% endif %}
+                <input type="text" class="form-control" name="name" 
+                    placeholder="Nombre del patient" value="{{ physio.name }}"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    {% else %}
+        <div class="alert alert-danger">Physio no especificado</div>
+    {% endif %}
+{% endblock %}

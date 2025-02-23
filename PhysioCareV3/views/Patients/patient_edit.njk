@@ -1,0 +1,59 @@
+
+{% extends "../base.njk" %}
+
+{% block titulo %}Patient | Ficha{% endblock %}
+
+{% block content %}
+
+   <h1>Edición de patient existente</h1>
+
+    {% if (patient) %}
+
+        {% if errores.general %}
+            <p class="alert alert-danger">{{ errores.general }}</p>
+        {% endif %}
+
+        <form action="/patients/{{ patient.id }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                {% if errores.name %}
+                    <p class="text-danger">{{ errores.name }}</p>
+                {% endif %}
+                <input type="text" class="form-control" name="name" 
+                    placeholder="Nombre del patient" value="{{ patient.name }}"/>
+            </div>
+            <div class="form-group">
+                <label for="surname">Apellidos:</label>
+                <input type="text" class="form-control" name="surname"
+                    placeholder="Apellidos del patient" value="{{ patient.surname }}"/>
+            </div>
+            <div class="form-group">
+                <label for="address">Dirección:</label>
+                {% if errores.address %}
+                    <p class="text-danger">{{ errores.address }}</p>
+                {% endif %}
+                <input type="text" class="form-control" name="address"
+                    placeholder="Dirección del patient" value="{{ patient.address }}"/>
+            </div>
+            <div class="form-group">
+                <label for="insuranceNumber">Número de Seguro:</label>
+                {% if errores.insuranceNumber %}
+                    <p class="text-danger">{{ errores.insuranceNumber }}</p>
+                {% endif %}
+                <input type="text" class="form-control" name="insuranceNumber"
+                    placeholder="Número de Seguro del patient" value="{{ patient.insuranceNumber }}"/>
+            </div>
+            <div class="form-group">
+                <label for="birthDate">Fecha de Nacimiento:</label>
+                {% if errores.birthDate %}
+                    <p class="text-danger">{{ errores.birthDate }}</p>
+                {% endif %}
+                <input type="date" class="form-control" name="birthDate"
+                    placeholder="Fecha de Nacimiento del patient" value="{{ patient.birthDate }}"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    {% else %}
+        <div class="alert alert-danger">Patient no especificado</div>
+    {% endif %}
+{% endblock %}

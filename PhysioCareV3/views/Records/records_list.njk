@@ -1,0 +1,38 @@
+{% extends "../base.njk"%}
+
+{% block titulo %}Records | List{% endblock %}
+
+{% block content %}
+
+<h1>Records</h1>
+
+<table class="w-100">
+    <tr class="bg-primary text-center">
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th class="w-25">Acciones</th>
+    </tr>
+    {% for record in records %} 
+            <tr>
+                {% if loop.index % 2 == 0 %}
+                    <td class="par">{{ record.patient.name}}</td>
+                    <td class="par">{{ record.patient.surname }}</td>
+                {% else %}
+                    <td class="impar">{{ record.patient.name }}</td>
+                    <td class="impar">{{ record.patient.surname }}</td>
+                {% endif %}
+                <td>
+                    <a class="btn btn-success" href="/records/{{ record.id }}">Ver ficha</a>
+                    <a class="btn btn-primary" href="/records/{{ record.id }}/appointments">Crear appointment</a>
+                    <form style="display:inline" action="/records/{{ record.id }}" method="post">
+                        <input type="hidden" name="_method" value="delete" />
+                        <button type="submit" class="btn btn-danger">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td>No hay records que mostrar.</td></tr>
+        {% endfor %} 
+</table>
+
+{% endblock %}
