@@ -1,17 +1,69 @@
 {% extends "base.njk" %}
 
-{% block titulo %}Libros | Ficha{% endblock %}
+{% block titulo %}Record | Ficha{% endblock %}
 
 {% block content %}
 
-    <h1>Ficha de libro</h1>
+    <h1>Record patient</h1>
+    
     <div>
-        <p><strong>Título:</strong> {{ libro.titulo }}</p>
-        <p><strong>Editorial:</strong> {{ libro.editorial }}</p>
-        <p><strong>Precio:</strong> {{ libro.precio }}</p>
-        {% if libro.portada %}
-            <p><img src="/public/uploads/{{ libro.portada }}"></p>
-        {% endif %}
+        <p><strong>Patient:</strong> {{ record.patient.name }} {{ record.patient.surname }}</p>
+        <p><strong>Medical Record:</strong> {{ record.medicalRecord }}</p>
+        <p><strong>Appointments:</strong></p>
+        <ul>
+            {% for appointment in record.appointments %}
+                <li>
+                    <p><strong>Date:</strong> {{ appointment.date }}</p>
+                    <p><strong>Physio:</strong> {{ physio.name }} {{ physio.surname }}</p>
+                    <p><strong>Diagnosis:</strong> {{ appointment.diagnosis }}</p>
+                    <p><strong>Treatment:</strong> {{ appointment.treatment }}</p>
+                    <p><strong>Observations:</strong> {{ appointment.observations }}</p>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
+    <a class="btn btn-success" href="/records">Back to list</a>
+    <a class="btn btn-primary" href="/records/{{ record.id }}/appointments">Crear Appointment</a>
+
 
 {% endblock %}
+
+{# let appointmentsSchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    require: [true, "La fecha es requerida"],
+  },
+  physio: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "physio",
+    require: [true, "El fisioterapeuta es requerido"],
+  },
+  diagnosis: {
+    type: String,
+    require: [true, "El diagnóstico es requerido"],
+    trim: true,
+    maxlength: [500, "El diagnóstico no puede tener más de 500 caracteres"],
+    minlength: [10, "El diagnóstico no puede tener menos de 10 caracteres"],
+  },
+  treatment: {
+    type: String,
+    require: [true, "El tratamiento es requerido"],
+    trim: true,
+  },
+  observations: {
+    type: String,
+    minlength: [500, "El campo no puede tener más de 500 caracteres"],
+  },
+});
+let recordSchema = new mongoose.Schema({
+  patient: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "patient",
+    require: [true, "El paciente es requerido"],
+  },
+  medicalRecord: {
+    type: String,
+    require: true,
+    maxlength: [1000, "El campo no puede tener más de 1000 caracteres"],
+  },
+  appointments: [appointmentsSchem #}

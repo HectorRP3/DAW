@@ -6,6 +6,18 @@
 
     <h1>Physios</h1>
 
+    <h2>Buscador de Specialty</h2>
+    <form action="/physios/find" method="get">
+        <select  class="form-select" name="specialty" >
+            <option value="Sports">Sports</option>
+            <option value="Neurological">Neurological</option>
+            <option value="Pediatric">Pediatric</option>
+            <option value="Geriatric">Geriatric</option>
+            <option value="Oncological">Oncological</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+     <a class="btn btn-success" href="/physios">Limpiar</a>
     <table class="w-100">
         <tr class="bg-primary text-center">
             <th>Nombre</th>
@@ -24,7 +36,7 @@
                             <input type="hidden" name="_method" value="delete" />
                             <button type="submit" class="btn btn-danger">Borrar</button>
                         </form>
-                        <a class="btn btn-primary" href="/physios/edit/{{ physio.id }}">Editar</a>
+                        <a class="btn btn-primary" href="/physios/{{ physio.id }}/edit">Editar</a>
                     </td>
                 </tr>
             {% else %}

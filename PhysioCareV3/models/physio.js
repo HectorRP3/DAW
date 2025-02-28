@@ -24,12 +24,6 @@ let physioSchema = new mongoose.Schema({
     type: String,
     require: [true, "El campo es requirido"],
     unique: [true, "El número de seguro ya existe"],
-    validate: {
-      validator: function (v) {
-        return /^[a-zA-Z0-9]{8}$/.test(v);
-      },
-      message: "El número de seguro debe tener 8 caracteres alfanuméricos",
-    },
     match: [
       /^[a-zA-Z0-9]{8}$/,
       "El número de seguro debe tener 9 caracteres alfanuméricos",

@@ -1,0 +1,34 @@
+{% extends "../base.njk" %}
+
+{% block titulo %}Expediente | Nuevo{% endblock %}
+
+{% block content %}
+
+    <h1>Inserción de nuevo Expediente</h1>
+
+    {% if errores %}
+        <p class="alert alert-danger">{{ errores.general }}</p>
+    {% endif %}
+
+    <form action="/records" method="post">
+        <div class="form-group">
+          <label for="insuranceNumber">Patient:</label>
+          {% if errores.insuranceNumber %}
+                <p class="text-danger">{{ errores.insuranceNumber }}</p>
+            {% endif %}
+            <input type="text" class="form-control" name="insuranceNumber" 
+                placeholder="InsuranceNumber del Patient..." >
+        </div>
+        <div class="form-group">
+          <label for="medicalRecord">Medical Record Patient:</label>
+          {% if errores.medicalRecord %}
+                <p class="text-danger">{{ errores.medicalRecord }}</p>
+            {% endif %}
+         <input type="text" class="form-control" name="medicalRecord" 
+                placeholder="Mediacalrecord del Patient..." >        
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+
+{% endblock %}

@@ -4,15 +4,26 @@
 
 {% block content %}
 
-<h1>Records</h1>
+    <h1>Records</h1>
 
-<table class="w-100">
-    <tr class="bg-primary text-center">
-        <th>Nombre</th>
-        <th>Apellidos</th>
-        <th class="w-25">Acciones</th>
-    </tr>
-    {% for record in records %} 
+    {% if errores.general%}
+        <p class="alert alert-danger">{{ errores.general }}</p>
+    {% endif %}
+    <h2>Buscar el Record por surname</h2>
+    <form action="/records/find" method="get">
+        <input type="text" class="form-control me-2" name="surname" placeholder="Record: Surname del patient"/>
+        <button type="submit" class="btn btn-primary ">
+        Buscar
+        </button>
+             <a class="btn btn-success" href="/physios">Limpiar</a>
+    </form>
+    <table class="w-100">
+        <tr class="bg-primary text-center">
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th class="w-25">Acciones</th>
+        </tr>
+        {% for record in records %}
             <tr>
                 {% if loop.index % 2 == 0 %}
                     <td class="par">{{ record.patient.name}}</td>
@@ -25,14 +36,16 @@
                     <a class="btn btn-success" href="/records/{{ record.id }}">Ver ficha</a>
                     <a class="btn btn-primary" href="/records/{{ record.id }}/appointments">Crear appointment</a>
                     <form style="display:inline" action="/records/{{ record.id }}" method="post">
-                        <input type="hidden" name="_method" value="delete" />
+                        <input type="hidden" name="_method" value="delete"/>
                         <button type="submit" class="btn btn-danger">Borrar</button>
                     </form>
                 </td>
             </tr>
         {% else %}
-            <tr><td>No hay records que mostrar.</td></tr>
-        {% endfor %} 
-</table>
+            <tr>
+                <td>No hay records que mostrar.</td>
+            </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}

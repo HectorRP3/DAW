@@ -9,8 +9,8 @@
     <title>{{ titulo }}</title>
   </head>
   <body>
+     {% include "menu.njk" %}
     <div class="container">
-      {% include "menu.njk" %}
       {% block content %}
     
       {% endblock %}

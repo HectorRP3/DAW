@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
       res.render("../views/Patients/patients_list", { patients: result });
     })
     .catch((err) => {
-      res.render("error", { error: "Error listando contactos" });
+      res.render("error", { error: "Error listando patients" });
     });
 });
 
@@ -27,13 +27,13 @@ router.get("/find", async (req, res) => {
       }
     })
     .catch((err) => {
-      res.render("../views/error.njk", { error: "Error listando contactos" });
+      res.render("../views/error.njk", { error: "Error listando patients" });
     });
 });
 
 // router.get("/find", async (req, res) => {
 //   let result;
-//   const { surname } = req.query;
+//   const { surname } = req.query;j
 //   try {
 //     if (surname) {
 //       result = await Patient.find({
@@ -181,7 +181,7 @@ router.post("/", upload.single("image"), async (req, res) => {
       };
       if (err.code === 11000) {
         if (err.keyPattern.insuranceNumber)
-          errores.insuranceNumber = "The number of insurance already exists";
+          errores.insuranceNumber = "El insuranceNumber ya existe";
       } else {
         if (err.errors.name) errores.name = err.errors.name.message;
         if (err.errors.surname) errores.surname = err.errors.surname.message;

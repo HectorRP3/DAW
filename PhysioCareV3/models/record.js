@@ -34,8 +34,8 @@ let recordSchema = new mongoose.Schema({
   },
   medicalRecord: {
     type: String,
-    require: false,
-    minlength: [1000, "El campo no puede tener más de 1000 caracteres"],
+    require: true,
+    maxlength: [1000, "El campo no puede tener más de 1000 caracteres"],
   },
   appointments: [appointmentsSchema],
 });
